@@ -23,6 +23,8 @@ class Player
 
         this.holdUp = false;
 
+        this.onGround = false;
+
     }
 
     jump() 
@@ -38,8 +40,17 @@ class Player
     applyGravity()
     {
         if (this.pos.y < GroundLevel - 15) {
-            this.vel.y += Gravity;
-            this.isJumping = true;
+            if(!this.onGround)
+            {
+                this.vel.y += Gravity;
+                this.isJumping = true;
+            }
+            else
+            {
+                this.vel.y = 0;
+                this.jumpCount = 0;
+                GroundLevel = this.pos.y;
+            }
         } else {
             this.vel.y = 0;
             this.jumpCount = 0;
@@ -65,7 +76,15 @@ class Player
     characterHandler()
     {
         imageMode(CENTER);
-        image(playerSprites[this.characterState], 0, 0)
+        if(plrState == "White")
+        {
+            image(playerSprites[this.characterState], 0, 0)
+        }
+        else if(plrState == "Black")
+        {
+            image(revertedPlayerSprites[this.characterState], 0, 0)
+        }
+        
     }
 
     show()
@@ -115,12 +134,12 @@ class Player
 
     collisionX(other)
     {
-        return dist(this.pos.x, this.pos.y, other.pos.x, other.pos.y) < this.playerSprites[this.characterState].width/2 + other.size.x;
+        return this.pos.x <= other.pos.x + other.width || this.pos.x >= other,pos.x+other.width;
     }
 
     collisionY(other)
     {
-        return dist(this.pos.x, this.pos.y, other.pos.x, other.pos.y) < this.playerSprites[this.characterState].height/2 + other.size.y;
+        return this.pos.x <= other.pos.y + other.height || this.pos.y >= other,pos.y+other.height;
     }
 
 }
