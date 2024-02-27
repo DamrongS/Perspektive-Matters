@@ -21,6 +21,8 @@ class Player
 
         this.changedSprite = false;
 
+        this.holdUp = false;
+
     }
 
     jump() 
@@ -33,9 +35,9 @@ class Player
         }
     }
 
-    applyGravity() 
+    applyGravity()
     {
-        if (this.pos.y < GroundLevel) {
+        if (this.pos.y < GroundLevel - 15) {
             this.vel.y += Gravity;
             this.isJumping = true;
         } else {
@@ -79,6 +81,11 @@ class Player
 
     update() 
     {
+        if(this.holdUp)
+        {
+            this.jump();
+        }
+
         this.pos.add(this.vel);
         this.pos.x = constrain(this.pos.x, playerSprites[this.characterState].width * 2, width - playerSprites[this.characterState].width * 2);
         this.applyGravity();
