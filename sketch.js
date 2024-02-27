@@ -46,8 +46,14 @@ function draw()
 
 function game()
 {
+
+  //fill(100*lop, 100*lop, 100*lop);
+  fill(100,100*lop,100);
+  rect(0, GroundLevel , width, height);
+
   plr.show();
   plr.update();
+  rectMode(CORNER);
 }
 
 function keyPressed()
@@ -81,9 +87,9 @@ function keyPressed()
   {
     if(lop == 0)
     {
-      lop = 255;
+      lop = 1;
     }
-    else if(lop == 255)
+    else if(lop == 1)
     {
       lop = 0;
     }

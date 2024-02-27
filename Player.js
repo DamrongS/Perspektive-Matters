@@ -80,7 +80,7 @@ class Player
         {
             image(playerSprites[this.characterState], 0, 0)
         }
-        else if(lop == 255)
+        else if(lop == 1)
         {
             image(revertedPlayerSprites[this.characterState], 0, 0)
         }
