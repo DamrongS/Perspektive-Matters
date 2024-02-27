@@ -36,7 +36,7 @@ function setup()
 
 function draw() 
 {
-
+  background(255 * lop);
   if(gameState == "Game")
   {
     game()
@@ -46,7 +46,6 @@ function draw()
 
 function game()
 {
-  background(lop);
   plr.show();
   plr.update();
 }
