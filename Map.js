@@ -11,7 +11,7 @@ class Map
         //image
         if(this.state == "Normal")
         {
-            background(0, 50, 180)
+            background(0, 50, 180);
         }
         else if(this.state == "No")
         {
