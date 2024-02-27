@@ -6,12 +6,22 @@ let GroundLevel;
 
 let playerSprites = [];
 
+let revertedPlayerSprites = [];
+
+let gameState = "Game";
+let plrState = "White";
+
 function preload()
 {
   playerSprites.push(loadImage("assets/marshmallow.png"));
   playerSprites.push(loadImage("assets/marshmallowWalk.gif"));
   playerSprites.push(loadImage("assets/marshmallowJump.png"));
   playerSprites.push(loadImage("assets/marshmallowFall.png"));
+
+  revertedPlayerSprites.push(loadImage("assets/rmarshmallow.png"));
+  revertedPlayerSprites.push(loadImage("assets/rmarshmallowWalk.gif"));
+  revertedPlayerSprites.push(loadImage("assets/rmarshmallowJump.png"));
+  revertedPlayerSprites.push(loadImage("assets/rmarshmallowFall.png"));
 }
 
 function setup() 
@@ -24,11 +34,33 @@ function setup()
 
 function draw() 
 {
-  background(220);
 
+  if(gameState == "Game")
+  {
+    if(plrState == "White")
+    {
+      gameWhite();
+    }
+    else if(plrState == "Black")
+    {
+      gameBlack();
+    }
+  }
+
+}
+
+function gameWhite()
+{
+  background(0);
   plr.show();
   plr.update();
+}
 
+function gameBlack()
+{
+  background(255);
+  plr.show();
+  plr.update();
 }
 
 function keyPressed()
@@ -53,9 +85,21 @@ function keyPressed()
   }
   else if (keyCode === 32 || keyCode == UP_ARROW) 
   {
+    plr.onGround = false;
     plr.holdUp = true;
     plr.setState(2);
     plr.jump();
+  }
+  if(key == "f")
+  {
+    if(plrState == "White")
+    {
+      plrState = "Black"
+    }
+    else if(plrState == "Black")
+    {
+      plrState = "White"
+    }
   }
 }
 
@@ -68,7 +112,7 @@ function keyReleased()
     plr.holdingLeft = false;
     if(plr.getBool()[1] == true)
     {
-      this.changedSprite = false
+      plr.changedSprite = false
       plr.Right(1);
       if(!plr.isJumping)
       {
@@ -79,13 +123,13 @@ function keyReleased()
   }
   if(keyCode == RIGHT_ARROW)
   {
-    this.changedSprite = false
+    plr.changedSprite = false
     plr.Right(0, false);
     plr.holdingRight = false;
     plr.setState(0);
     if(plr.getBool()[0] == true)
     {
-      this.changedSprite = true
+      plr.changedSprite = true
       plr.Left(1, true);
       if(!plr.isJumping)
       {
@@ -98,6 +142,7 @@ function keyReleased()
   {
     plr.holdUp = false;
     plr.setState(3);
-    this.changedSprite = false
+    plr.changedSprite = false
+    //plr.onGround = true;
   }
 }
