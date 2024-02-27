@@ -76,11 +76,11 @@ class Player
     characterHandler()
     {
         imageMode(CENTER);
-        if(plrState == "White")
+        if(lop == 0)
         {
             image(playerSprites[this.characterState], 0, 0)
         }
-        else if(plrState == "Black")
+        else if(lop == 255)
         {
             image(revertedPlayerSprites[this.characterState], 0, 0)
         }

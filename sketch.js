@@ -11,6 +11,8 @@ let revertedPlayerSprites = [];
 let gameState = "Game";
 let plrState = "White";
 
+let lop = 0;
+
 function preload()
 {
   playerSprites.push(loadImage("assets/marshmallow.png"));
@@ -37,28 +39,14 @@ function draw()
 
   if(gameState == "Game")
   {
-    if(plrState == "White")
-    {
-      gameWhite();
-    }
-    else if(plrState == "Black")
-    {
-      gameBlack();
-    }
+    game()
   }
 
 }
 
-function gameWhite()
+function game()
 {
-  background(0);
-  plr.show();
-  plr.update();
-}
-
-function gameBlack()
-{
-  background(255);
+  background(lop);
   plr.show();
   plr.update();
 }
@@ -92,13 +80,13 @@ function keyPressed()
   }
   if(key == "f")
   {
-    if(plrState == "White")
+    if(lop == 0)
     {
-      plrState = "Black"
+      lop = 255;
     }
-    else if(plrState == "Black")
+    else if(lop == 255)
     {
-      plrState = "White"
+      lop = 0;
     }
   }
 }
