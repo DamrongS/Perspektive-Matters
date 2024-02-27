@@ -1,93 +1,158 @@
 class Player
 {
-    constructor(x, y, state="Normal")
+    constructor(x, y, character="White")
     {
+        this.character = character;
         this.pos = createVector(x, y);
-        this.state = state
-        this.vel = createVector(0, 0)
-        this.speed = 5;
-        this.acc = createVector(0, 0)
+        this.vel = createVector(0, 0);
         this.direction = 1;
-        this.left = false;
-        this.right = false;
+        this.angle = 0;
+        this.holdingLeft = false;
+        this.holdingRight = false;
+        this.mass = 0;
+        this.scalar = height/200;
+        this.speed = this.scalar*1.5;
+        this.characterState = 0;
+
+        this.isJumping = false;
+        this.jumpStrength = this.scalar * 5;
+        this.jumpCount = 0;
+        this.maxJumpCount = 2;
+
+        this.changedSprite = false;
+
+    }
+
+    jump() 
+    {
+        if (!this.isJumping && this.jumpCount < this.maxJumpCount)
+         {
+            this.vel.y = -this.jumpStrength;
+            this.isJumping = true;
+            this.jumpCount++;
+        }
+    }
+
+    applyGravity() 
+    {
+        if (this.pos.y < GroundLevel) {
+            this.vel.y += Gravity;
+            this.isJumping = true;
+        } else {
+            this.vel.y = 0;
+            this.jumpCount = 0;
+            if(this.isJumping)
+            {
+                this.characterState = 2;
+            }
+            else
+            {
+                if(this.holdingLeft || this.holdingRight)
+                {
+                    this.characterState = 1;
+                }
+                else
+                {
+                    this.characterState = 0;
+                }
+            }
+            this.isJumping = false;
+        }
+    }
+
+    characterHandler()
+    {
+        imageMode(CENTER);
+        image(playerSprites[this.characterState], 0, 0)
     }
 
     show()
     {
         push();
-        translate(this.pos.x, this.pos.y)
-        rotate(0)
-        scale(1, 1)
+        translate(this.pos.x, this.pos.y);
+        rotate(this.angle);
+        scale(this.direction * this.scalar, this.scalar);
         rectMode(CENTER);
-        rect(0, 0, 50, 75)
+        this.characterHandler();
         pop();
     }
 
-    update()
+    update() 
     {
-        this.vel.add(this.acc);
-
-        this.vel.x = constrain(this.vel.x, -1, 1) * this.speed;
-
-        this.pos.add(this.vel)
+        this.pos.add(this.vel);
+        this.pos.x = constrain(this.pos.x, playerSprites[this.characterState].width * 2, width - playerSprites[this.characterState].width * 2);
+        this.applyGravity();
     }
 
-    setState(newState)
+    Left(val, truefalse=false)
     {
-        this.state = newState;
+        this.vel.x = -val * this.speed;
+        this.direction = -1;
     }
 
-    Left(val)
+    Right(val, truefalse=false)
     {
-        if(val == 0)
-        {
-            this.vel.x = 0
-            this.acc.x = 0
-        }
-        else
-        {
-            this.acc.x = -val
-            this.direction = -1
-        }
+        this.vel.x = val * this.speed;
+        this.direction = 1;
     }
 
-    Right(val)
+    getBool()
     {
-        if(val == 0)
-        {
-            this.vel.x = 0
-            this.acc.x = 0
-        }
-        else
-        {
-            this.acc.x = val
-            this.direction = 1
-        }
+        return [this.holdingLeft, this.holdingRight];
     }
 
-    getPosition()
+    setState(newState=1)
     {
-        return this.pos;
+        this.characterState = newState;
     }
 
-    setRight(val)
+    collisionX(other)
     {
-        this.right = val;
+        return dist(this.pos.x, this.pos.y, other.pos.x, other.pos.y) < this.playerSprites[this.characterState].width/2 + other.size.x;
     }
 
-    setLeft(val)
+    collisionY(other)
     {
-        this.left = val;
-    }
-
-    getRight()
-    {
-        return this.right;
-    }
-
-    getLeft()
-    {
-        return this.left;
+        return dist(this.pos.x, this.pos.y, other.pos.x, other.pos.y) < this.playerSprites[this.characterState].height/2 + other.size.y;
     }
 
 }
+
+//place inside sketch.js
+// function keyPressed()
+// {
+//     if(keyCode == LEFT_ARROW)
+//     {
+//       plr.Left(1);
+//       plr.holdingLeft = true;
+//     }
+//     if(keyCode == RIGHT_ARROW)
+//     {
+//       plr.Right(1);
+//       plr.holdingRight = true;
+//     }
+//   }
+  
+//   function keyReleased()
+//   {
+//     if(keyCode == LEFT_ARROW)
+//     {
+//       plr.Left(0, false);
+//       plr.holdingLeft = false;
+//       if(plr.getBool()[1] == true)
+//       {
+//         plr.Right(1)
+//         plr.holdingRight = true;
+//       }
+//     }
+//     if(keyCode == RIGHT_ARROW)
+//     {
+//       plr.Right(0, false);
+//       plr.holdingRight = false;
+//       if(plr.getBool()[0] == true)
+//       {
+//         plr.Left(1, true)
+//         plr.holdingLeft = true;
+//       }
+//     }
+//   }
