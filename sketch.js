@@ -19,7 +19,7 @@ function setup()
   createCanvas(1200, 800);
   noSmooth();
   GroundLevel = height/1.5;
-  plr = new Player(width/2, height/1.5, "White")
+  plr = new Player(width/2, height/1.5, "White");
 }
 
 function draw() 
@@ -53,6 +53,7 @@ function keyPressed()
   }
   else if (keyCode === 32 || keyCode == UP_ARROW) 
   {
+    plr.holdUp = true;
     plr.setState(2);
     plr.jump();
   }
@@ -95,6 +96,7 @@ function keyReleased()
   }
   else if (keyCode === 32 || keyCode == UP_ARROW) 
   {
+    plr.holdUp = false;
     plr.setState(3);
     this.changedSprite = false
   }
