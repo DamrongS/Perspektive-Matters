@@ -94,6 +94,8 @@ function grounded() {
 
 function reverseGrounded()
 {
+  platformGround = GroundLevel;
+
     for (let i = reversePlatforms.length - 1; i >= 0; i--) {
       const platform = reversePlatforms[i];
       platform.show();
