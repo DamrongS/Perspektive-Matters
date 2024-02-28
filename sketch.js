@@ -28,6 +28,7 @@ function preload()
 
 function setup() 
 {
+  angleMode(DEGREES);
   createCanvas(1200, 800);
   noSmooth();
   GroundLevel = height/1.5;
