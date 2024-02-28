@@ -17,6 +17,8 @@ let platformGround;
 
 let platforms = [];
 
+let reversePlatforms = [];
+
 function preload()
 {
 
@@ -48,6 +50,9 @@ function setup()
 
   platforms.push(new Platform(100, 400, 300, 50))
   platforms.push(new Platform(600, 300, 300, 50));
+
+  reversePlatforms.push(new Platform(700, 400, 300, 50))
+  reversePlatforms.push(new Platform(800, 300, 300, 50));
 }
 
 function draw() 
@@ -88,7 +93,19 @@ function grounded() {
   }
 }
 
+function reverseGrounded()
+{
+    for (let i = reversePlatforms.length - 1; i >= 0; i--) {
+      const platform = reversePlatforms[i];
+      platform.show();
 
+      if (platform.playerCollision(plr)) {
+          if (plr.pos.y < platform.pos.y && platform.pos.y < platformGround) {
+              platformGround = platform.pos.y;
+          }
+      }
+  }
+}
 
 function game()
 {
@@ -109,8 +126,16 @@ function game()
     }
   }
 
+  if(lop == 0)
+  {
+    grounded();
+  }
+  else
+  {
+    reverseGrounded();
+  }
+
   //rect(-width, GroundLevel , width*3, height);
-  grounded();
   plr.show();
   plr.update();
   rectMode(CORNER);
