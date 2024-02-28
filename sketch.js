@@ -19,6 +19,10 @@ let platforms = [];
 
 let reversePlatforms = [];
 
+let currentLevel = 0;
+
+let levels = [];
+
 function preload()
 {
 
@@ -73,8 +77,20 @@ function draw()
 
   if(gameState == "Game")
   {
-    game()
+    if(currentLevel == 1)
+    {
+      game()
+    }
+    else
+    {
+      Menu();
+    }
   }
+}
+
+function Menu()
+{
+
 }
 
 function grounded() {
@@ -94,6 +110,8 @@ function grounded() {
 
 function reverseGrounded()
 {
+  platformGround = GroundLevel;
+
     for (let i = reversePlatforms.length - 1; i >= 0; i--) {
       const platform = reversePlatforms[i];
       platform.show();
