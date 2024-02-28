@@ -25,7 +25,7 @@ class Platform
 
     playerCollision(foreigner)
     {
-        const onTop = foreigner.pos.y < this.pos.y;
+        const onTop = foreigner.pos.y <= this.pos.y;
         const insideX = foreigner.pos.x+48 >= this.pos.x && foreigner.pos.x-48 <= this.pos.x + this.thicc;
 
         if (onTop && insideX)
