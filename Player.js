@@ -24,7 +24,8 @@ class Player
         this.holdUp = false;
 
         this.onGround = false;
-
+        
+        this.platformGround = false;
     }
 
     jump() 
@@ -39,7 +40,7 @@ class Player
 
     applyGravity()
     {
-        if (this.pos.y < GroundLevel - 15) {
+        if (this.pos.y < platformGround - 15) {
             if(!this.onGround)
             {
                 this.vel.y += Gravity;
@@ -49,7 +50,7 @@ class Player
             {
                 this.vel.y = 0;
                 this.jumpCount = 0;
-                GroundLevel = this.pos.y;
+                platformGround = this.pos.y;
             }
         } else {
             this.vel.y = 0;
@@ -91,6 +92,7 @@ class Player
     {
         push();
         translate(this.pos.x, this.pos.y);
+        console.log("playerx " + this.pos.x + "playery " + this.pos.y);
         rotate(this.angle);
         scale(this.direction * this.scalar, this.scalar);
         rectMode(CENTER);
@@ -140,6 +142,11 @@ class Player
     collisionY(other)
     {
         return this.pos.x <= other.pos.y + other.height || this.pos.y >= other,pos.y+other.height;
+    }
+
+    changeGroundLevel()
+    {
+
     }
 
 }
