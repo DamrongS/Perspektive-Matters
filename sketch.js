@@ -15,6 +15,13 @@ let lop = 0;
 
 function preload()
 {
+
+  grassImg = loadImage("assets/grass.png");
+
+  layer1Img = loadImage("assets/layer1.png");
+  layer2Img = loadImage("assets/layer2.png");
+  layer3Img = loadImage("assets/layer3.png");
+
   playerSprites.push(loadImage("assets/marshmallow.png"));
   playerSprites.push(loadImage("assets/marshmallowWalk.gif"));
   playerSprites.push(loadImage("assets/marshmallowJump.png"));
@@ -31,13 +38,22 @@ function setup()
   angleMode(DEGREES);
   createCanvas(1200, 800);
   noSmooth();
+  paralax = new Paralax()
   GroundLevel = height/1.5;
   plr = new Player(width/2, height/1.5, "White");
 }
 
 function draw() 
 {
-  background(82, 178, 222);
+  if(lop == 0)
+  {
+    background(82, 178, 222);
+  }
+  else
+  {
+    background(173, 77, 33);
+  }
+  
 
   let cameraX = plr.pos.x - width / 2;
   let cameraY = plr.pos.y - height / 2;
@@ -54,9 +70,23 @@ function draw()
 function game()
 {
 
+  let grassWidth = 64*plr.scalar;
+  let grassHeight = 64*plr.scalar;
+
+  paralax.show(plr.pos.x);
+
   //fill(100*lop, 100*lop, 100*lop);
   fill(115, 181, 112);
-  rect(-width, GroundLevel , width*3, height);
+
+  for (let x = -width; x <= (width*2) - grassWidth/2; x += grassWidth)
+   {
+    for (let y = GroundLevel; y < height*2; y += grassHeight) 
+    {
+      image(grassImg, x, y, grassWidth, grassHeight);
+    }
+  }
+
+  //rect(-width, GroundLevel , width*3, height);
 
   plr.show();
   plr.update();
@@ -92,6 +122,11 @@ function keyPressed()
   }
   if(key == "f")
   {
+    grassImg.filter(INVERT)
+
+    layer1Img.filter(INVERT)
+    layer2Img.filter(INVERT)
+    layer3Img.filter(INVERT)
     if(lop == 0)
     {
       lop = 1;
