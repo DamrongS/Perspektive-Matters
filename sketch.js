@@ -65,7 +65,6 @@ function draw()
   {
     background(173, 77, 33);
   }
-  
 
   let cameraX = plr.pos.x - width / 2;
   let cameraY = plr.pos.y - height / 2;
@@ -141,6 +140,7 @@ function game()
   plr.show();
   plr.update();
   rectMode(CORNER);
+
 }
 
 function keyPressed()
