@@ -17,15 +17,18 @@ class Platform
         scale(this.direction * this.scalar, this.scalar);
         rect(0, 0, this.thicc, this.tall);
         //image()
+
+        fill(255,0,0)
+        rect(0,0,this.thicc,5)
         pop();
     }
 
     playerCollision(foreigner)
     {
-        const onTop = foreigner.pos.y <= this.pos.y + 25;
+        const onTop = foreigner.pos.y < this.pos.y;
         const insideX = foreigner.pos.x >= this.pos.x && foreigner.pos.x <= this.pos.x + this.thicc;
 
         if (onTop && insideX)
             return true
     }
-}
+}   
