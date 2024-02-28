@@ -9,6 +9,7 @@ let playerSprites = [];
 let revertedPlayerSprites = [];
 
 let gameState = "Game";
+let menuState = "Start"
 let plrState = "White";
 
 let lop = 0;
@@ -21,11 +22,10 @@ let reversePlatforms = [];
 
 let currentLevel = 0;
 
-let levels = [];
+let levels = [1];
 
 function preload()
 {
-
   grassImg = loadImage("assets/grass.png");
 
   layer1Img = loadImage("assets/layer1.png");
@@ -48,6 +48,29 @@ function setup()
   angleMode(DEGREES);
   createCanvas(1200, 800);
   noSmooth();
+
+  playButton = createButton("Play")
+  playButton.style('font-family', 'YourCustomFont');
+  playButton.position(width/2.5, height/3)
+  playButton.size(150, 50)
+  playButton.mousePressed(StartGame);
+
+  settingsButton = createButton("Settings")
+  settingsButton.style('font-family', 'YourCustomFont');
+  settingsButton.position(width/2.5, height/2)
+  settingsButton.size(150, 50)
+  settingsButton.mousePressed(Settings);
+
+  creditsButton = createButton("Credits")
+  creditsButton.style('font-family', 'YourCustomFont');
+  creditsButton.position(width/2.5, height/1.5)
+  creditsButton.size(150, 50)
+  creditsButton.mousePressed(Credits);
+
+  playButton.show();
+  settingsButton.show();
+  creditsButton.show();
+
   paralax = new Paralax()
   GroundLevel = height/1.5;
   plr = new Player(width/2, height/1.5, "White");
@@ -88,9 +111,54 @@ function draw()
   }
 }
 
+function DisplayLevels()
+{
+  for(let i = 0; i < levels.length - 1; i++)
+  {
+    fill(255);
+    rect(200, 200, 200, 400)
+  }
+}
+
 function Menu()
 {
+  background(0)
 
+  if(menuState == "Start")
+  {
+    playButton.show();
+    settingsButton.show();
+    creditsButton.show();
+  }
+  else if(menuState == "Levels")
+  {
+    playButton.hide();
+    settingsButton.hide();
+    creditsButton.hide();
+    fill(255);
+    DisplayLevels();
+  }
+  else
+  {
+    playButton.hide();
+    settingsButton.hide();
+    creditsButton.hide();
+  }
+}
+
+function StartGame()
+{
+  menuState = "Levels";
+}
+
+function Settings()
+{
+  menuState = "Settings";
+}
+
+function Credits()
+{
+  menuState = "Credits";
 }
 
 function grounded() {
@@ -106,6 +174,11 @@ function grounded() {
           }
       }
   }
+}
+
+function levelSelector()
+{
+
 }
 
 function reverseGrounded()
