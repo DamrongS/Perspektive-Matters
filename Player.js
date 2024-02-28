@@ -106,7 +106,7 @@ class Player
         }
 
         this.pos.add(this.vel);
-        this.pos.x = constrain(this.pos.x, playerSprites[this.characterState].width * 2, width - playerSprites[this.characterState].width * 2);
+        this.pos.x = constrain(this.pos.x, -width + playerSprites[this.characterState].width * 2, width*2 - playerSprites[this.characterState].width * 2);
         this.applyGravity();
     }
 

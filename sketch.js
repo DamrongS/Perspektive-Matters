@@ -37,7 +37,13 @@ function setup()
 
 function draw() 
 {
-  background(255 * lop);
+  background(82, 178, 222);
+
+  let cameraX = plr.pos.x - width / 2;
+  let cameraY = plr.pos.y - height / 2;
+
+  translate(-cameraX, -cameraY);
+
   if(gameState == "Game")
   {
     game()
@@ -49,8 +55,8 @@ function game()
 {
 
   //fill(100*lop, 100*lop, 100*lop);
-  fill(100,100*lop,100);
-  rect(0, GroundLevel , width, height);
+  fill(115, 181, 112);
+  rect(-width, GroundLevel , width*3, height);
 
   plr.show();
   plr.update();
