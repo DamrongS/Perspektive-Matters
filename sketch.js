@@ -13,6 +13,8 @@ let plrState = "White";
 
 let lop = 0;
 
+let platformGround;
+
 function preload()
 {
 
@@ -41,6 +43,7 @@ function setup()
   paralax = new Paralax()
   GroundLevel = height/1.5;
   plr = new Player(width/2, height/1.5, "White");
+  platform = new Platform(100, 400, 100, 50);
 }
 
 function draw() 
@@ -65,6 +68,17 @@ function draw()
     game()
   }
 
+  grounded();
+}
+
+function grounded()
+{
+  if (platform.playerCollision(plr))
+  {
+    platformGround = platform.pos.y;
+  } else {
+    platformGround = GroundLevel;
+  }
 }
 
 function game()
@@ -88,6 +102,7 @@ function game()
 
   //rect(-width, GroundLevel , width*3, height);
 
+  platform.show();
   plr.show();
   plr.update();
   rectMode(CORNER);
