@@ -15,6 +15,8 @@ let lop = 0;
 
 let platformGround;
 
+let platforms = [];
+
 function preload()
 {
 
@@ -43,7 +45,9 @@ function setup()
   paralax = new Paralax()
   GroundLevel = height/1.5;
   plr = new Player(width/2, height/1.5, "White");
-  platform = new Platform(100, 400, 100, 50);
+
+  platforms.push(new Platform(100, 400, 300, 50))
+  platforms.push(new Platform(600, 300, 300, 50));
 }
 
 function draw() 
@@ -67,19 +71,24 @@ function draw()
   {
     game()
   }
-
-  grounded();
 }
 
-function grounded()
-{
-  if (platform.playerCollision(plr))
-  {
-    platformGround = platform.pos.y;
-  } else {
-    platformGround = GroundLevel;
+function grounded() {
+  platformGround = GroundLevel;
+
+  for (let i = platforms.length - 1; i >= 0; i--) {
+      const platform = platforms[i];
+      platform.show();
+
+      if (platform.playerCollision(plr)) {
+          if (plr.pos.y < platform.pos.y && platform.pos.y < platformGround) {
+              platformGround = platform.pos.y;
+          }
+      }
   }
 }
+
+
 
 function game()
 {
@@ -101,8 +110,7 @@ function game()
   }
 
   //rect(-width, GroundLevel , width*3, height);
-
-  platform.show();
+  grounded();
   plr.show();
   plr.update();
   rectMode(CORNER);

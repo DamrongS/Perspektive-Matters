@@ -95,7 +95,6 @@ class Player
         console.log("playerx " + this.pos.x + "playery " + this.pos.y);
         rotate(this.angle);
         scale(this.direction * this.scalar, this.scalar);
-        rectMode(CENTER);
         this.characterHandler();
         pop();
     }
