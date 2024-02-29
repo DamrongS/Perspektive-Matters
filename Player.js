@@ -40,7 +40,7 @@ class Player
 
     applyGravity()
     {
-        if (this.pos.y < platformGround - 20) {
+        if (this.pos.y < platformGround - 5) {
             if(!this.onGround)
             {
                 this.vel.y += Gravity;

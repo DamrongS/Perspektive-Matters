@@ -102,6 +102,9 @@ function draw()
   {
     if(currentLevel == 1)
     {
+      playButton.hide();
+      settingsButton.hide();
+      creditsButton.hide();
       game()
     }
     else
@@ -138,6 +141,12 @@ function Menu()
     fill(255);
     DisplayLevels();
   }
+  else if(menuState == "None")
+  {
+    playButton.hide();
+    settingsButton.hide();
+    creditsButton.hide();
+  }
   else
   {
     playButton.hide();
@@ -148,7 +157,9 @@ function Menu()
 
 function StartGame()
 {
-  menuState = "Levels";
+  //menuState = "Levels";
+  menuState = "None";
+  currentLevel = 1;
 }
 
 function Settings()
