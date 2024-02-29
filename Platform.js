@@ -15,11 +15,12 @@ class Platform
         translate(this.pos.x, this.pos.y);
         console.log(this.pos.x + " " + this.pos.y)
         scale(this.direction * this.scalar, this.scalar);
-        rect(0, 0, this.thicc, this.tall);
+        //rect(0, 0, this.thicc, this.tall);
+        image(platformImg, 0, 0, this.thicc, this.tall);
         //image()
 
         fill(255,0,0)
-        rect(0,0,this.thicc,5)
+        //rect(0,0,this.thicc,5)
         pop();
     }
 

@@ -28,6 +28,8 @@ function preload()
 {
   grassImg = loadImage("assets/grass.png");
 
+  platformImg = loadImage("assets/platform.png");
+
   layer1Img = loadImage("assets/layer1.png");
   layer2Img = loadImage("assets/layer2.png");
   layer3Img = loadImage("assets/layer3.png");
