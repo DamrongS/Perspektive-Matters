@@ -168,7 +168,8 @@ function Menu()
 
 function StartGame()
 {
-  menuState = "Levels";
+  //menuState = "Levels";
+  gameState = "Game";
   playButton.hide();
   settingsButton.hide();
   creditsButton.hide();
