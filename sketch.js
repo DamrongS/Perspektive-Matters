@@ -279,6 +279,7 @@ function keyPressed()
     layer1Img.filter(INVERT)
     layer2Img.filter(INVERT)
     layer3Img.filter(INVERT)
+    platformImg.filter(INVERT);
     if(lop == 0)
     {
       lop = 1;
