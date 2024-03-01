@@ -8,7 +8,7 @@ let playerSprites = [];
 
 let revertedPlayerSprites = [];
 
-let gameState = "Game";
+let gameState = "Levels";
 let menuState = "Start"
 let plrState = "White";
 
@@ -50,6 +50,8 @@ function setup()
   angleMode(DEGREES);
   createCanvas(1200, 800);
   noSmooth();
+
+  myMap = new Map(0)
 
   playButton = createButton("Play")
   playButton.style('font-family', 'YourCustomFont');
@@ -102,17 +104,24 @@ function draw()
 
   if(gameState == "Game")
   {
-    if(currentLevel == 1)
-    {
       playButton.hide();
       settingsButton.hide();
       creditsButton.hide();
-      game()
-    }
-    else
-    {
-      Menu();
-    }
+      if(myMap.state == 1)
+      {
+        myMap.level1();
+      }
+
+      plr.show();
+      plr.update();
+  }
+ else if(gameState == "Levels")
+  {
+    myMap.levelSelector();
+  }
+  else
+  {
+
   }
 }
 
@@ -159,9 +168,12 @@ function Menu()
 
 function StartGame()
 {
-  //menuState = "Levels";
-  menuState = "None";
-  currentLevel = 1;
+  menuState = "Levels";
+  playButton.hide();
+  settingsButton.hide();
+  creditsButton.hide();
+  //menuState = "None";
+  myMap.changeState(1);
 }
 
 function Settings()
@@ -208,41 +220,6 @@ function reverseGrounded()
           }
       }
   }
-}
-
-function game()
-{
-
-  let grassWidth = 64*plr.scalar;
-  let grassHeight = 64*plr.scalar;
-
-  paralax.show(plr.pos.x);
-
-  //fill(100*lop, 100*lop, 100*lop);
-  fill(115, 181, 112);
-
-  for (let x = -width; x <= (width*2) - grassWidth/2; x += grassWidth)
-   {
-    for (let y = GroundLevel; y < height*2; y += grassHeight) 
-    {
-      image(grassImg, x, y, grassWidth, grassHeight);
-    }
-  }
-
-  if(lop == 0)
-  {
-    grounded();
-  }
-  else
-  {
-    reverseGrounded();
-  }
-
-  //rect(-width, GroundLevel , width*3, height);
-  plr.show();
-  plr.update();
-  rectMode(CORNER);
-
 }
 
 function keyPressed()
