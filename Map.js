@@ -44,7 +44,7 @@ class Map
 
         if(lop == 0)
         {
-            grounded();
+            Grounded();
         }
         else
         {

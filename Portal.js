@@ -93,4 +93,15 @@ class Portal
 
     }
 
+    playerCollision(foreigner)
+    {
+        if(foreigner.pos.y >= this.pos.y && foreigner.pos.y <= this.pos.y + (5 * 32) && foreigner.pos.x >= this.pos.x && foreigner.pos.x <= this.pos.x + (4 * 32))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

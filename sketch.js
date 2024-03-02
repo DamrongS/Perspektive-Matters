@@ -24,6 +24,8 @@ let currentLevel = 0;
 
 let levels = [1];
 
+let mapArray = []; //Index[0] is map, Index[1] is background, Index[2] is player, Index[3] is weapon, Index[4] is portal, Index[5] and onwards is platforms for now
+
 function preload()
 {
   grassImg = loadImage("assets/grass.png");
@@ -81,7 +83,7 @@ function setup()
   GroundLevel = height/1.5;
   plr = new Player(width/2, height/1.5, "White");
 
-  platforms.push(new Platform(100, 400, 300, 50))
+  platforms.push(new Platform(100, 400, 300, 50));
   platforms.push(new Platform(600, 300, 300, 50));
 
   reversePlatforms.push(new Platform(700, 400, 300, 50))
@@ -89,7 +91,7 @@ function setup()
 
   sword = new Weapon("marshmallow_sword.png", 0, 0, 3, 3, 180, plr)
 
-  portal1 = new Portal(0, 0, 1)
+  portal1 = new Portal(-200, GroundLevel - 150, 1)
 
 }
 
@@ -135,6 +137,8 @@ function draw()
   {
 
   }
+
+  console.log(portal1.playerCollision(plr));
 }
 
 function DisplayLevels()
@@ -185,6 +189,7 @@ function StartGame()
   playButton.hide();
   settingsButton.hide();
   creditsButton.hide();
+  mapArray.push(new Map(0), new Paralax(), new Player(width/2, height/1.5, "White"), new Weapon("marshmallow_sword.png", 0, 0, 3, 3, 180, plr), new Portal(-200, GroundLevel - 150, 1), new Platform(100, 400, 300, 50), new Platform(600, 300, 300, 50), new Platform(700, 400, 300, 50), new Platform(800, 300, 300, 50));
   //menuState = "None";
   myMap.changeState(1);
 }
@@ -199,11 +204,26 @@ function Credits()
   menuState = "Credits";
 }
 
-function grounded() {
+function Grounded() {
   platformGround = GroundLevel;
 
   for (let i = platforms.length - 1; i >= 0; i--) {
       const platform = platforms[i];
+      platform.show();
+
+      if (platform.playerCollision(plr)) {
+          if (plr.pos.y < platform.pos.y && platform.pos.y < platformGround) {
+              platformGround = platform.pos.y;
+          }
+      }
+  }
+}
+
+function NewGrounded() {
+  platformGround = GroundLevel;
+
+  for (let i = mapArray.length - 1; i >= 5; i--) {
+      const platform = mapArray[i];
       platform.show();
 
       if (platform.playerCollision(plr)) {
@@ -232,6 +252,31 @@ function reverseGrounded()
               platformGround = platform.pos.y;
           }
       }
+  }
+}
+
+function NewReverseGrounded() 
+{
+  platformGround = GroundLevel;
+
+  for (let i = mapArray.length - 1; i >= 5; i--) {
+      const platform = platforms[i];
+      platform.show();
+
+      if (platform.playerCollision(plr)) {
+          if (plr.pos.y < platform.pos.y && platform.pos.y < platformGround) {
+              platformGround = platform.pos.y;
+          }
+      }
+  }
+}
+
+function PortalEntered(portalX)
+{
+  if(portal1.playerCollision(plr))
+  {
+    mapArray.splice(0, mapArray.length);
+    mapArray.push(new Map(0), new Paralax(), new Player(width/2, height/1.5, "White"), new Weapon("marshmallow_sword.png", 0, 0, 3, 3, 180, plr), new Portal(portalX, GroundLevel - (5 * 32), 1), new Platform(100, 400, 300, 50), new Platform(600, 300, 300, 50), new Platform(700, 400, 300, 50), new Platform(800, 300, 300, 50));
   }
 }
 
