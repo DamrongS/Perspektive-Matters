@@ -43,6 +43,8 @@ function preload()
   revertedPlayerSprites.push(loadImage("assets/rmarshmallowWalk.gif"));
   revertedPlayerSprites.push(loadImage("assets/rmarshmallowJump.png"));
   revertedPlayerSprites.push(loadImage("assets/rmarshmallowFall.png"));
+
+  swingEffect = loadImage("assets/swing_effect.png");
 }
 
 function setup() 
@@ -86,6 +88,9 @@ function setup()
   reversePlatforms.push(new Platform(800, 300, 300, 50));
 
   sword = new Weapon("marshmallow_sword.png", 0, 0, 3, 3, 180, plr)
+
+  portal1 = new Portal(0, 0, 1)
+
 }
 
 function draw() 
@@ -116,6 +121,8 @@ function draw()
 
       sword.show(plr);
       sword.update(plr);
+
+      portal1.show();
 
       plr.show();
       plr.update();
@@ -266,7 +273,7 @@ function keyPressed()
     if(lop == 0)
     {
       lop = 1;
-      sword.changeSprite("rmarshmallow_sword.png");
+      sword.changeSprite("rmarshmallow_sword.png");  
     }
     else if(lop == 1)
     {

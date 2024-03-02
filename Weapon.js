@@ -12,9 +12,11 @@ class Weapon {
 
         this.attackFrame = 0;
         this.isAttacking = false;
-        this.attackDuration = 50;
+        this.attackDuration = 30;
 
         this.combo = 0;
+
+        this.angle2 = 0;
 
     }
 
@@ -25,6 +27,13 @@ class Weapon {
         rotate(this.angle);
         imageMode(CENTER);
         image(this.sprite, 0, 0, 64, 64)
+        if(this.isAttacking)
+        {
+            push();
+            rotate(this.angle2 - this.angle)
+            image(swingEffect, 0, 0, 64, 64);
+            pop();
+        }
         pop();
     }
 
@@ -44,15 +53,16 @@ class Weapon {
         if (this.isAttacking) {
             //console.log(this.attackFrame);
             this.attackFrame++;
-            this.angle += 5;
+            this.angle2 += 11;
+            this.angle += 10;
             if (this.attackFrame >= this.attackDuration) {
                 this.attackFrame = 0;
                 this.isAttacking = false;
                 this.offset = createVector(-20, 10);
                 this.angle = 180;
-                if(this.lop == 1)
+                if(lop == 1)
                 {
-                    this.changeSprite("marshmallow_sword.png");
+                    this.changeSprite("rmarshmallow_sword.png");
                 }
                 else
                 {
@@ -64,15 +74,20 @@ class Weapon {
     }
 
     attack(plr) {
-        this.combo++;
-        this.changeSprite("marshmallow_sword_swing1.gif");
-        if(this.combo > 3)
+        if(!this.isAttacking)
         {
-            this.combo = 1;
+            this.combo++;
+            //this.changeSprite("marshmallow_sword_swing1.gif");
+            this.angle = -25;
+            this.angle2 = -25;
+            if(this.combo > 3)
+            {
+                this.combo = 1;
+            }
+            this.isAttacking = true;
+            this.offset = createVector(150*plr.direction, 10);
+            console.log(this.combo);
         }
-        this.isAttacking = true;
-        this.offset = createVector(100*plr.direction, 10);
-        console.log(this.combo);
     }
 
 }
