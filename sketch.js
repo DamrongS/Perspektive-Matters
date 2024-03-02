@@ -274,6 +274,10 @@ function keyPressed()
       sword.changeSprite("marshmallow_sword.png");
     }
   }
+  if(key == "q")
+  {
+    sword.attack(plr);
+  }
 }
 
 function keyReleased()

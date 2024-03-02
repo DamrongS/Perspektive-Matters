@@ -92,7 +92,7 @@ class Player
     {
         push();
         translate(this.pos.x, this.pos.y);
-        console.log("playerx " + this.pos.x + "playery " + this.pos.y);
+        //console.log("playerx " + this.pos.x + "playery " + this.pos.y);
         rotate(this.angle);
         scale(this.direction * this.scalar, this.scalar);
         this.characterHandler();

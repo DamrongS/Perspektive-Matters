@@ -13,7 +13,7 @@ class Platform
     {
         push();
         translate(this.pos.x, this.pos.y);
-        console.log(this.pos.x + " " + this.pos.y)
+        //console.log(this.pos.x + " " + this.pos.y)
         scale(this.direction * this.scalar, this.scalar);
         //rect(0, 0, this.thicc, this.tall);
         image(platformImg, 0, 0, this.thicc, this.tall);
