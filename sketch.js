@@ -84,6 +84,8 @@ function setup()
 
   reversePlatforms.push(new Platform(700, 400, 300, 50))
   reversePlatforms.push(new Platform(800, 300, 300, 50));
+
+  sword = new Weapon("marshmallow_sword.png", 0, 0, 3, 3, 180, plr)
 }
 
 function draw() 
@@ -111,6 +113,9 @@ function draw()
       {
         myMap.level1();
       }
+
+      sword.show(plr);
+      sword.update(plr);
 
       plr.show();
       plr.update();
@@ -261,10 +266,12 @@ function keyPressed()
     if(lop == 0)
     {
       lop = 1;
+      sword.changeSprite("rmarshmallow_sword.png");
     }
     else if(lop == 1)
     {
       lop = 0;
+      sword.changeSprite("marshmallow_sword.png");
     }
   }
 }
