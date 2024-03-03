@@ -16,14 +16,14 @@ class Portal
 
     show()
     {
+        push()
+        translate(this.pos.x, this.pos.y)
         for(let r = 0; r < this.shape.length; r++)
         {
             for(let c = 0; c < this.shape[r].length; c++)
             {
                 if(this.shape[r][c] == "#")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(255);
@@ -35,12 +35,9 @@ class Portal
                         stroke(0);
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else if(this.shape[r][c] == "r")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(20, 168, 168);
@@ -52,12 +49,9 @@ class Portal
                         stroke(235, 87, 87);
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else if(this.shape[r][c] == "g")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(156, 41, 143);
@@ -69,12 +63,9 @@ class Portal
                         stroke(99, 214, 112)
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else if(this.shape[r][c] == "b")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(196, 180, 64);
@@ -86,12 +77,9 @@ class Portal
                         stroke(59, 75, 191)
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else if(this.shape[r][c] == "y")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(5, 20, 118);
@@ -103,12 +91,9 @@ class Portal
                         stroke(250, 235, 137);
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else if(this.shape[r][c] == "a")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(112, 9, 0);
@@ -120,12 +105,9 @@ class Portal
                         stroke(143, 246, 255)
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else if(this.shape[r][c] == "p")
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(115, 182, 116);
@@ -137,12 +119,9 @@ class Portal
                         stroke(140, 73, 139)
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
                 else
                 {
-                    push();
-                    translate(this.pos.x, this.pos.y)
                     if(lop == 1)
                     {
                         fill(0);
@@ -154,10 +133,10 @@ class Portal
                         stroke(255);
                     }
                     rect(c*32, r*32, 32, 32);
-                    pop();
                 }
             }
         }
+        pop();
     }
 
     update()

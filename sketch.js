@@ -26,6 +26,8 @@ let levels = [1];
 
 let mapArray = []; //Index[0] is map, Index[1] is background, Index[2] is player, Index[3] is weapon, Index[4] is portal, Index[5] and onwards is platforms for now
 
+let Portals = [];
+
 function preload()
 {
   grassImg = loadImage("assets/grass.png");
@@ -92,6 +94,20 @@ function setup()
   sword = new Weapon("marshmallow_sword.png", 0, 0, 3, 3, 180, plr)
 
   portal1 = new Portal(-200, GroundLevel - 150, 1)
+  portal2 = new Portal(200, GroundLevel - 150, 1, 
+  [["#","#","#","#",],
+  ["#","p","p","#",],
+  ["#","p","p","#",],
+  ["#","p","p","#",],
+  ["#","#","#","#",],]
+  )
+  portal3 = new Portal(400, GroundLevel - 150, 1, 
+    [["#","#","#","#",],
+    ["#","r","r","#",],
+    ["#","r","r","#",],
+    ["#","r","r","#",],
+    ["#","#","#","#",],]
+    )
 
 }
 
@@ -125,6 +141,8 @@ function draw()
       sword.update(plr);
 
       portal1.show();
+      portal2.show();
+      portal3.show();
 
       plr.show();
       plr.update();
